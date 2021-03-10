@@ -15,6 +15,11 @@ export default createMuiTheme({
         secondary:{
             main: `${jOrange}`
         }
+    },
+    typography:{
+        h3:{
+            fontWeight: 300
+        }
     }
     
 })
