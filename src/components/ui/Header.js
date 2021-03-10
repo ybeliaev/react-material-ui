@@ -2,6 +2,8 @@ import React from "react"
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -32,11 +34,24 @@ function ElevationScroll(props) {
    },
    logo:{
      height: "7em"
+   },
+   tabContainer: {
+     marginLeft: "auto"
+   },
+   tab:{   
+     ...theme.typography.tab,  
+     minWidth: 10, // контент кнопок меню ужмётся
+     marginLeft: "25px"
    }
  }))
 
 
 export default function Header() {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   const classes = useStyles()
     return (
       <>
@@ -44,6 +59,17 @@ export default function Header() {
             <AppBar position="fixed">
                 <Toolbar disableGutters >
                   <img src={logo} alt="company logo" className={classes.logo}/>
+                  <Tabs value={value} 
+                        onChange={handleChange}
+                        aria-label="simple tabs example"
+                        className={classes.tabContainer}
+                  >
+                    <Tab label="Home" className={classes.tab} />
+                    <Tab label="Services" className={classes.tab} />
+                    <Tab label="The Revolution" className={classes.tab} />
+                    <Tab label="About Us" className={classes.tab} />
+                    <Tab label="Contact Us" className={classes.tab} />
+                  </Tabs>
                 </Toolbar>
             </AppBar>
             
