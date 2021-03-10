@@ -4,6 +4,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 
+
+
 function ElevationScroll(props) {
     const { children } = props;
     
@@ -26,6 +28,7 @@ export default function Header() {
             <AppBar position="fixed">
                 <Toolbar>Jorgen design</Toolbar>
             </AppBar>
+            
         </ElevationScroll>
        
     )
