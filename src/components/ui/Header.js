@@ -59,9 +59,10 @@ export default function Header() {
             <AppBar position="fixed">
                 <Toolbar disableGutters >
                   <img src={logo} alt="company logo" className={classes.logo}/>
-                  <Tabs value={value} 
+                  <Tabs value={value} // value - порядок пункта меню
                         onChange={handleChange}
                         aria-label="simple tabs example"
+                        indicatorColor="primary"
                         className={classes.tabContainer}
                   >
                     <Tab label="Home" className={classes.tab} />
