@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 import {Link} from "react-router-dom"
 
 import AppBar from '@material-ui/core/AppBar';
@@ -49,6 +49,21 @@ function ElevationScroll(props) {
 
 export default function Header() {
   const [value, setValue] = React.useState(0);
+
+  // чтобы после перезагрузки не сбрасывалось в HOME а оставалось в старом месте 
+  useEffect(() => {
+    if(window.location.pathname === "/" && value !== 0 ){
+      setValue(0)
+    }else if(window.location.pathname === "/services" && value !== 1 ){
+      setValue(1)
+    }else if(window.location.pathname === "/revolution" && value !== 2 ){
+      setValue(2)
+    }else if(window.location.pathname === "/about" && value !== 3 ){
+      setValue(3)
+    }else if(window.location.pathname === "/contact" && value !== 4 ){
+      setValue(4)
+    }
+  }, [value])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
