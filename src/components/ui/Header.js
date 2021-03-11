@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import logo from "../../assets/logo.svg"
 
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import { Button } from "@material-ui/core";
 
 
 
@@ -34,7 +35,13 @@ function ElevationScroll(props) {
      marginBottom: "3em"
    },
    logo:{
-     height: "7em"
+     height: "8em"
+   },
+   logoContainer:{
+     padding: 0,
+     "&:hover": {
+       backgroundColor: 'transparent',
+     }
    },
    tabContainer: {
      marginLeft: "auto"
@@ -74,7 +81,15 @@ export default function Header() {
         <ElevationScroll>
             <AppBar position="fixed">
                 <Toolbar disableGutters >
-                  <img src={logo} alt="company logo" className={classes.logo}/>
+                  <Button
+                    component={Link}
+                    to="/"
+                    disableRipple
+                    className={classes.logoContainer}
+                    onClick={_ => setValue(0)} // иначе останется выделенным пред пункт меню
+                    >                    
+                    <img src={logo} alt="company logo" className={classes.logo}/>
+                  </Button>
                   <Tabs value={value} // value - порядок пункта меню
                         onChange={handleChange}
                         aria-label="simple tabs example"
