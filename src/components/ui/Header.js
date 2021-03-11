@@ -1,4 +1,5 @@
 import React from "react"
+import {Link} from "react-router-dom"
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -65,11 +66,11 @@ export default function Header() {
                         indicatorColor="primary"
                         className={classes.tabContainer}
                   >
-                    <Tab label="Home" className={classes.tab} />
-                    <Tab label="Services" className={classes.tab} />
-                    <Tab label="The Revolution" className={classes.tab} />
-                    <Tab label="About Us" className={classes.tab} />
-                    <Tab label="Contact Us" className={classes.tab} />
+                    <Tab label="Home" className={classes.tab} component={Link} to="/" />
+                    <Tab label="Services" className={classes.tab} component={Link} to="/services" />
+                    <Tab label="The Revolution" className={classes.tab} component={Link} to="/revolution" />
+                    <Tab label="About Us" className={classes.tab} component={Link} to="/about"/>
+                    <Tab label="Contact Us" className={classes.tab} component={Link} to="/contact" />
                   </Tabs>
                 </Toolbar>
             </AppBar>
