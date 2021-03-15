@@ -5,13 +5,13 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import { Button } from "@material-ui/core";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 
 import logo from "../../assets/logo.svg";
-
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import { Button } from "@material-ui/core";
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -51,7 +51,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header() {
   const [value, setValue] = React.useState(0);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
 
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+    setOpen(false);
+  };
   // чтобы после перезагрузки не сбрасывалось в HOME а оставалось в старом месте
   useEffect(() => {
     if (window.location.pathname === "/" && value !== 0) {
@@ -100,6 +110,9 @@ export default function Header() {
               />
               <Tab
                 label="Services"
+                aria-controls={anchorEl ? "customized-menu" : undefined}
+                aria-haspopup={anchorEl ? true : undefined}
+                onMouseOver={(e) => handleClick(e)}
                 className={classes.tab}
                 component={Link}
                 to="/services"
@@ -123,6 +136,18 @@ export default function Header() {
                 to="/contact"
               />
             </Tabs>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+              MenuListProps={{ onMouseLeave: handleClose }} // чтобы скрывалось меню после ухода мышки
+            >
+              <MenuItem onClick={handleClose}>Software development</MenuItem>
+              <MenuItem onClick={handleClose}>Mobile App development</MenuItem>
+              <MenuItem onClick={handleClose}>Website development</MenuItem>
+            </Menu>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
