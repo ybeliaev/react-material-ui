@@ -47,6 +47,17 @@ const useStyles = makeStyles((theme) => ({
         minWidth: 10, // контент кнопок меню ужмётся
         marginLeft: '25px',
     },
+    menu: {
+        backgroundColor: theme.palette.common.jBlue,
+        color: 'white',
+    },
+    menuItem: {
+        ...theme.typography.tab,
+        opacity: 0.7,
+        '&:hover': {
+            opacity: 1,
+        },
+    },
 }))
 
 export default function Header() {
@@ -148,7 +159,11 @@ export default function Header() {
                             keepMounted
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
-                            MenuListProps={{ onMouseLeave: handleClose }} // чтобы скрывалось меню после ухода мышки look https://material-ui.com/api/menu/#main-content
+                            classes={{ paper: classes.menu }}
+                            // чтобы скрывалось меню после ухода мышки look https://material-ui.com/api/menu/#main-content
+                            MenuListProps={{ onMouseLeave: handleClose }}
+                            // remove dropshadow
+                            elevation={0}
                         >
                             <MenuItem
                                 onClick={() => {
@@ -157,6 +172,7 @@ export default function Header() {
                                 }}
                                 component={Link}
                                 to="/services"
+                                classes={{ root: classes.menuItem }}
                             >
                                 Services
                             </MenuItem>
@@ -167,6 +183,7 @@ export default function Header() {
                                 }}
                                 component={Link}
                                 to="/soft_dev"
+                                classes={{ root: classes.menuItem }}
                             >
                                 Software development
                             </MenuItem>
@@ -177,6 +194,7 @@ export default function Header() {
                                 }}
                                 component={Link}
                                 to="/modile_dev"
+                                classes={{ root: classes.menuItem }}
                             >
                                 Mobile App development
                             </MenuItem>
@@ -187,6 +205,7 @@ export default function Header() {
                                 }}
                                 component={Link}
                                 to="/website_dev"
+                                classes={{ root: classes.menuItem }}
                             >
                                 Website development
                             </MenuItem>
