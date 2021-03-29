@@ -10,6 +10,8 @@ import { Button } from '@material-ui/core'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { makeStyles } from '@material-ui/core/styles'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { useTheme } from '@material-ui/core/styles'
 
 import logo from '../../assets/logo.svg'
 
@@ -29,9 +31,21 @@ const useStyles = makeStyles((theme) => ({
     toolbarMargin: {
         ...theme.mixins.toolbar,
         marginBottom: '3em',
+        [theme.breakpoints.down('md')]: {
+            marginBottom: '2em',
+        },
+        [theme.breakpoints.down('xs')]: {
+            marginBottom: '1.25em',
+        },
     },
     logo: {
         height: '8em',
+        [theme.breakpoints.down('md')]: {
+            height: '7em',
+        },
+        [theme.breakpoints.down('xs')]: {
+            height: '5.5em',
+        },
     },
     logoContainer: {
         padding: 0,
@@ -62,6 +76,9 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function Header() {
+    const classes = useStyles()
+    const theme = useTheme()
+    const matches = useMediaQuery(theme.breakpoints.down('md'))
     const [value, setValue] = React.useState(0)
     const [selectedIndex, setSelectedIndex] = React.useState(0)
     const [anchorEl, setAnchorEl] = React.useState(null)
@@ -130,7 +147,108 @@ export default function Header() {
     const handleChange = (event, newValue) => {
         setValue(newValue)
     }
-    const classes = useStyles()
+    const tabs = (
+        <>
+            <Tabs
+                value={value} // value - порядок пункта меню
+                onChange={handleChange}
+                aria-label="simple tabs example"
+                indicatorColor="primary"
+                className={classes.tabContainer}
+            >
+                <Tab
+                    label="Home"
+                    className={classes.tab}
+                    component={Link}
+                    to="/"
+                />
+                <Tab
+                    label="Services"
+                    aria-controls={anchorEl ? 'customized-menu' : undefined}
+                    aria-haspopup={anchorEl ? true : undefined}
+                    onMouseOver={(e) => handleClick(e)}
+                    className={classes.tab}
+                    component={Link}
+                    to="/services"
+                />
+                <Tab
+                    label="The Revolution"
+                    className={classes.tab}
+                    component={Link}
+                    to="/revolution"
+                />
+                <Tab
+                    label="About Us"
+                    className={classes.tab}
+                    component={Link}
+                    to="/about"
+                />
+                <Tab
+                    label="Contact Us"
+                    className={classes.tab}
+                    component={Link}
+                    to="/contact"
+                />
+            </Tabs>
+            <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                classes={{ paper: classes.menu }}
+                // чтобы скрывалось меню после ухода мышки look https://material-ui.com/api/menu/#main-content
+                MenuListProps={{ onMouseLeave: handleClose }}
+                // remove dropshadow
+                elevation={0}
+            >
+                <MenuItem
+                    onClick={() => {
+                        handleClose()
+                        setValue(1)
+                    }}
+                    component={Link}
+                    to="/services"
+                    classes={{ root: classes.menuItem }}
+                >
+                    Services
+                </MenuItem>
+                <MenuItem
+                    onClick={() => {
+                        handleClose()
+                        setValue(1)
+                    }}
+                    component={Link}
+                    to="/soft_dev"
+                    classes={{ root: classes.menuItem }}
+                >
+                    Software development
+                </MenuItem>
+                <MenuItem
+                    onClick={() => {
+                        handleClose()
+                        setValue(1)
+                    }}
+                    component={Link}
+                    to="/modile_dev"
+                    classes={{ root: classes.menuItem }}
+                >
+                    Mobile App development
+                </MenuItem>
+                <MenuItem
+                    onClick={() => {
+                        handleClose()
+                        setValue(1)
+                    }}
+                    component={Link}
+                    to="/website_dev"
+                    classes={{ root: classes.menuItem }}
+                >
+                    Website development
+                </MenuItem>
+            </Menu>
+        </>
+    )
     return (
         <>
             <ElevationScroll>
@@ -149,106 +267,7 @@ export default function Header() {
                                 className={classes.logo}
                             />
                         </Button>
-                        <Tabs
-                            value={value} // value - порядок пункта меню
-                            onChange={handleChange}
-                            aria-label="simple tabs example"
-                            indicatorColor="primary"
-                            className={classes.tabContainer}
-                        >
-                            <Tab
-                                label="Home"
-                                className={classes.tab}
-                                component={Link}
-                                to="/"
-                            />
-                            <Tab
-                                label="Services"
-                                aria-controls={
-                                    anchorEl ? 'customized-menu' : undefined
-                                }
-                                aria-haspopup={anchorEl ? true : undefined}
-                                onMouseOver={(e) => handleClick(e)}
-                                className={classes.tab}
-                                component={Link}
-                                to="/services"
-                            />
-                            <Tab
-                                label="The Revolution"
-                                className={classes.tab}
-                                component={Link}
-                                to="/revolution"
-                            />
-                            <Tab
-                                label="About Us"
-                                className={classes.tab}
-                                component={Link}
-                                to="/about"
-                            />
-                            <Tab
-                                label="Contact Us"
-                                className={classes.tab}
-                                component={Link}
-                                to="/contact"
-                            />
-                        </Tabs>
-                        <Menu
-                            id="simple-menu"
-                            anchorEl={anchorEl}
-                            keepMounted
-                            open={Boolean(anchorEl)}
-                            onClose={handleClose}
-                            classes={{ paper: classes.menu }}
-                            // чтобы скрывалось меню после ухода мышки look https://material-ui.com/api/menu/#main-content
-                            MenuListProps={{ onMouseLeave: handleClose }}
-                            // remove dropshadow
-                            elevation={0}
-                        >
-                            <MenuItem
-                                onClick={() => {
-                                    handleClose()
-                                    setValue(1)
-                                }}
-                                component={Link}
-                                to="/services"
-                                classes={{ root: classes.menuItem }}
-                            >
-                                Services
-                            </MenuItem>
-                            <MenuItem
-                                onClick={() => {
-                                    handleClose()
-                                    setValue(1)
-                                }}
-                                component={Link}
-                                to="/soft_dev"
-                                classes={{ root: classes.menuItem }}
-                            >
-                                Software development
-                            </MenuItem>
-                            <MenuItem
-                                onClick={() => {
-                                    handleClose()
-                                    setValue(1)
-                                }}
-                                component={Link}
-                                to="/modile_dev"
-                                classes={{ root: classes.menuItem }}
-                            >
-                                Mobile App development
-                            </MenuItem>
-                            <MenuItem
-                                onClick={() => {
-                                    handleClose()
-                                    setValue(1)
-                                }}
-                                component={Link}
-                                to="/website_dev"
-                                classes={{ root: classes.menuItem }}
-                            >
-                                Website development
-                            </MenuItem>
-                        </Menu>
+                        {matches ? null : tabs}
                     </Toolbar>
                 </AppBar>
             </ElevationScroll>
